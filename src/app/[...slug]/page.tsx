@@ -169,11 +169,13 @@ const AboutLocation = async ({ params }: any) => {
     "toll_free": 16,
     "instagram": 17,
     "facebook": 18,
-    "linkedin": 19
+    "linkedin": 19,
+    "pictureUrl":20
   };
 
   // Fetch Excel data
   const excelData = await fetchSheetData(slug);
+  console.log(excelData,'excelData')
 
   const filterdataByAddress = async (id: any) => {
     if (!excelData || !Array.isArray(excelData)) {
@@ -183,6 +185,7 @@ const AboutLocation = async ({ params }: any) => {
     const filteredData = excelData.filter(
       (data: any) => String(data[ExcelDataKeys.synup_id]) === String(id)
     );
+    console.log(filteredData,"filteredData");
     if (filteredData.length === 0) {
       return notFound();
     }
@@ -211,11 +214,18 @@ const AboutLocation = async ({ params }: any) => {
 
   const id = location.id;
   const base64Id: any = decodeBase64(id);
+  console.log(base64Id,"base64Id")
   const result = await filterdataByAddress(base64Id);
 
   console.log(result)
 
   const isOpen = true;
+
+  const convertGoogleDriveLink = (url: string) => {
+    const match = url.match(/[-\w]{25,}/); 
+    return match ? `https://drive.google.com/uc?export=view&id=${match[0]}` : url;
+  };
+  
 
   return (
     <>
@@ -287,13 +297,17 @@ const AboutLocation = async ({ params }: any) => {
       {/* Doctor Section */}
       <div className="container px-[15px] mx-auto flex py-[32px]  flex-col md:flex-row justify-center items-center md:items-none gap-8 border-b border-[#e5e5e5]">
         {/* <div className=""> */}
-
         <Image
-          src="/img/doctor.png"
+         src={
+          result[ExcelDataKeys["pictureUrl"]]
+            ? convertGoogleDriveLink(result[ExcelDataKeys["pictureUrl"]])
+            : `https://placehold.co/400x400?text=${encodeURIComponent(printNames(result) )}`
+        }
           alt=""
           width={300}
           height={550}
           className="w-full md:w-[300px]"
+        
         />
         {/* </div> */}
         <div className=" flex-1">
