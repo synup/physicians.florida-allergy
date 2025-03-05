@@ -4,7 +4,6 @@ import {
   FaFacebookF,
   FaInstagram,
   FaLinkedinIn,
-  FaTwitter,
 } from "react-icons/fa";
 import { Menu, X } from "lucide-react";
 import { GraphQLClient, gql } from "graphql-request";
