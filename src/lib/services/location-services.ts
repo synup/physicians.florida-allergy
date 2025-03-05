@@ -8,7 +8,7 @@ export function filterLocations(
   locations: Partial<Location>[],
   radius: number
 ) {
-  let filteredLocations: Partial<Location>[] = [];
+  const filteredLocations: Partial<Location>[] = [];
   locations?.map((l) => {
     let distance = 0;
 
@@ -30,7 +30,7 @@ export function filterLocations(
     }
   });
 
-  let sortDistance = sortLocationsFromNearestToFarthest(
+  const sortDistance = sortLocationsFromNearestToFarthest(
     { lat, lng },
     filteredLocations
   );

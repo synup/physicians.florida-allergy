@@ -1,9 +1,8 @@
-import axios from "axios";
-
-let axiosClient = axios.create({});
+import axios ,{ InternalAxiosRequestConfig }from "axios";
+const axiosClient = axios.create({});
 
 axiosClient.interceptors.request.use(
-  function (config: any) {
+  function (config: InternalAxiosRequestConfig) {
     return config;
   },
   function (error) {
@@ -14,7 +13,7 @@ axiosClient.interceptors.request.use(
 const sendRequest = <T>(
   path: string,
   method: string = "GET",
-  data: any = null,
+  data:Record<string, unknown> | null = null,
   headers = null,
   contentType = "application/json"
 ): Promise<T> => {

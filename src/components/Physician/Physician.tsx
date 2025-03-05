@@ -13,7 +13,7 @@ import { useFilterLocations } from "@/hooks/useFilterLocations";
 
 const Physician = () => {
   // Hook
-  const { filterLocations, loading, error, fetchFilterLocations } = useFilterLocations();
+  const { filterLocations, loading, fetchFilterLocations } = useFilterLocations();
 
   // States
   const [center, setCenter] = useState(DEFAULT_LOCATION);
@@ -45,7 +45,7 @@ const Physician = () => {
         lng: searchPlace.lng,
       });
     }
-  }, [filterLocations]);
+  }, [filterLocations,searchPlace.lat, searchPlace.lng]);
 
   // Handlers
   const placesSearchHandler = async (searchPlace: any) => {
@@ -67,7 +67,7 @@ const Physician = () => {
 
   useEffect(() => {
     fetchFilterLocations({});
-  }, []);
+  }, [fetchFilterLocations]);
 
   return (
     <>

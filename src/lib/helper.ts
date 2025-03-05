@@ -1,4 +1,4 @@
-import { BusinessHour, Location, Slot } from "@/models/interfaces";
+import { BusinessHour, Location } from "@/models/interfaces";
 import moment from "moment";
 import axios from "axios";
 import Papa from "papaparse";
@@ -228,13 +228,13 @@ export const getLocationSlug = (location: any) => {
 
 export const sortHours = (hours: BusinessHour[]): BusinessHour[] => {
   try {
-    let sortedHours: BusinessHour[] = [];
+    const sortedHours: BusinessHour[] = [];
     if (hours?.length > 0) {
       let day = "";
-      let daysRequired = 6;
+      const daysRequired = 6;
       for (let i = 0; i <= daysRequired; i++) {
         day = moment().add(i, "days").format("dddd");
-        let dayHour = hours?.find(function (h) {
+        const dayHour = hours?.find(function (h) {
           return h?.day?.toLowerCase() == day?.toLowerCase();
         });
         sortedHours?.push(dayHour as BusinessHour);
@@ -504,7 +504,7 @@ export const getLocationObjectFromGoogleSheetObject = (
 };
 
 export const isShowCareerPage = (slug: string) => {
-  let arr = [
+  const arr = [
     "/arizona/tucson/3925-n-flowing-wells-rd",
     "/arizona/tucson/1703-w-valencia-rd",
     "/arizona/tucson/3725-e-fort-lowell-rd",
@@ -528,7 +528,7 @@ export const getCoverImage = (locationPhotos: any) => {
   return coverImage?.url;
 };
 
-export const getRedirectLink = async (providedLocation: String) => {
+export const getRedirectLink = async (providedLocation: string) => {
   try {
     providedLocation = providedLocation.startsWith("/")
       ? providedLocation.slice(1)
@@ -549,7 +549,7 @@ export const getRedirectLink = async (providedLocation: String) => {
     interface ParsedRow {
       "Location URL": string;
       "Redirect link": string;
-      "Button Name": String;
+      "Button Name": string;
     }
 
     const match = (parsedData?.data as ParsedRow[]).find((row: ParsedRow) => {
@@ -560,6 +560,7 @@ export const getRedirectLink = async (providedLocation: String) => {
           .toLowerCase();
         return locationPath === providedLocation;
       } catch (error) {
+        console.log(error,"error")
         return false;
       }
     });

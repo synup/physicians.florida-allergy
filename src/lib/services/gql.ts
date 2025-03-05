@@ -1,7 +1,6 @@
 import { Location } from "@/models/interfaces";
 import request, { gql } from "graphql-request";
 import { SYNUP_API_KEY } from "../constants";
-import sendRequest from "./axios";
 import axios from "axios";
 export const fetchLocations = async (): Promise<Partial<Location>[]> => {
   try {
@@ -49,7 +48,11 @@ export const fetchLocations = async (): Promise<Partial<Location>[]> => {
         }
       }
     `;
-    const statesDataFromPlatform: any = await request({
+    const statesDataFromPlatform: {
+      filterLocations?: {
+        edges?: { node: Partial<Location> }[];
+      };
+    } = await request({
       url: `https://v2.synup.com/graphql?date=${new Date().getTime()}`,
       document: ALL_STATES,
       requestHeaders: {
@@ -72,14 +75,12 @@ export const fetchLocations = async (): Promise<Partial<Location>[]> => {
 
 export const fetchReview = async (
   locationId: string,
-  cursor?: any,
-  type?: any
 ) => {
   try {
     const review = await axios.get(`/api/reviews-list?id=${locationId}`);
     return review.data.locations;
   } catch (error) {
-    console.log("error while update", error);
+    console.error("error while update", error);
     return [];
   }
 };

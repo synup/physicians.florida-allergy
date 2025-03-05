@@ -46,12 +46,12 @@ export type Slot = {
   end: string | null;
 };
 
-type BusinessDay = {
-  day: string;
-  type: "OPEN" | "CLOSED";
-  slots: Slot[];
-  specialDate: string | null;
-};
+// type BusinessDay = {
+//   day: string;
+//   type: "OPEN" | "CLOSED";
+//   slots: Slot[];
+//   specialDate: string | null;
+// };
 
 export type DayHours = {
   start: string | null;

@@ -1,5 +1,4 @@
 "use server";
-import sendRequest from "@/lib/services/axios";
 import axios from "axios";
 
 export const geoSearchHandler = async (payload: any) => {
@@ -25,6 +24,7 @@ export const geoSearchHandler = async (payload: any) => {
       data: response.data.response,
     };
   } catch (error) {
+    console.error("GeoSearch API Error:", error);
     return {
       error: true,
       message: "something went wrong!",

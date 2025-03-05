@@ -3,8 +3,6 @@ import { fetchLocations } from "@/lib/services/gql";
 import { RADIUS_THRESHOLD } from "@/lib/helper";
 import { filterLocations } from "@/lib/services/location-services";
 import { Location } from "@/models/interfaces";
-const fs = require('fs');
-const path = require('path');
 
 
 export const dynamic = "force-dynamic";
