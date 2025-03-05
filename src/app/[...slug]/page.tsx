@@ -410,16 +410,16 @@ const AboutLocation = async ({ params }: any) => {
 
           {/* Social Icons */}
           <div className="flex space-x-4">
-            <a href="#" className="text-gray-500 hover:text-gray-800">
+            <a href={result[ExcelDataKeys["facebook"]]} className="text-gray-500 hover:text-gray-800">
               <FaFacebookF size={20} />
             </a>
-            <a href="#" className="text-gray-500 hover:text-gray-800">
+            <a href={result[ExcelDataKeys["linkedin"]]} className="text-gray-500 hover:text-gray-800">
               <FaLinkedinIn size={20} />
             </a>
-            <a href="#" className="text-gray-500 hover:text-gray-800">
+            {/* <a href="#" className="text-gray-500 hover:text-gray-800">
               <FaTwitter size={20} />
-            </a>
-            <a href="#" className="text-gray-500 hover:text-gray-800">
+            </a> */}
+            <a href={result[ExcelDataKeys["instagram"]]} className="text-gray-500 hover:text-gray-800">
               <FaInstagram size={20} />
             </a>
           </div>
