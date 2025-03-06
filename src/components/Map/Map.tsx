@@ -32,12 +32,21 @@ const Map = (props: MapProps) => {
   const [map, setMap] = useState<google.maps.Map | null>(null);
 
   // On Map Load
-  const onLoad = useCallback(function callback(map: google.maps.Map) {
-    const bounds = new window.google.maps.LatLngBounds();
-    // map.fitBounds(bounds);
-
+  const onLoad = useCallback((map: google.maps.Map) => {
     setMap(map);
-  }, []);
+
+    if (props.locations?.length === 1) {
+      const location = props.locations[0];
+      setTimeout(() => {
+        map.setCenter({ lat: location.lat, lng: location.lng });
+        map.setZoom(17);
+      }, 500);
+    } else if (props.locations && props.locations.length > 1) {
+      const bounds = new window.google.maps.LatLngBounds();
+      props.locations.forEach((loc) => bounds.extend(loc));
+      map.fitBounds(bounds);
+    }
+  }, [props.locations]);
 
   // On Map Unmount
   const onUnmount = useCallback(function callback() {
@@ -61,7 +70,7 @@ const Map = (props: MapProps) => {
 
   return (
     <div className="google-map h-full">
-      <GoogleMap
+      {/* <GoogleMap
         mapContainerStyle={DEFAULT_CONTAINER_STYLE}
         center={center}
         zoom={props?.zoomLevel || 10}
@@ -86,6 +95,21 @@ const Map = (props: MapProps) => {
         ) : (
           <></>
         )}
+      </GoogleMap> */}
+       <GoogleMap
+        mapContainerStyle={{ ...DEFAULT_CONTAINER_STYLE, height: "100%" }}
+        center={center}
+        zoom={props?.zoomLevel || 10}
+        onLoad={onLoad}
+        onUnmount={onUnmount}
+      >
+        {props.locations?.map((location, index) => (
+          <Marker
+            key={index}
+            position={{ lat: Number(location.lat), lng: Number(location.lng) }}
+            icon={{ url: "/img/locate.svg" }}
+          />
+        ))}
       </GoogleMap>
     </div>
   );
