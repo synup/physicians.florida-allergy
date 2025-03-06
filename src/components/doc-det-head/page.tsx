@@ -23,13 +23,15 @@ export default function DocDetHeader({ getlocation }) {
       <header className="page-header ">
         <div className="container relative nav-bar px-[15px] mx-auto flex py-4">
           <div className="flex items-center md:space-x-3">
-            <Image
-              src="/img/logo.png"
-              alt="Florida Center Logo"
-              width={268}
-              height={80}
-              className="logo"
-            />
+            <Link href={"/"}>
+              <Image
+                src="/img/logo.png"
+                alt="Florida Center Logo"
+                width={268}
+                height={80}
+                className="logo"
+              />
+            </Link>
           </div>
           <button onClick={openmenu} className="md:hidden p-2 ml-auto text-[#3fae49] focus:outline-none">
             {isOpen ? <X size={28} /> : <Menu size={28} />}

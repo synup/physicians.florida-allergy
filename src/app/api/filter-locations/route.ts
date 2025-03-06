@@ -14,7 +14,19 @@ export async function GET(req: NextRequest) {
     const city = req.nextUrl.searchParams?.get("city")?.trim()?.toLowerCase();
     const state = req.nextUrl.searchParams?.get("state")?.trim()?.toLowerCase();
 
-    const allLocations = await fetchLocations();
+    const allLocationsRaw = await fetchLocations();
+
+    const allLocations = allLocationsRaw.filter((location: Partial<Location>) => {
+      const customAttrs = location.customAttributes;
+      for (const customAttr of customAttrs) {
+        if (customAttr["name"] === "Doctor bio") {
+          if (customAttr["value"] && customAttr["value"].length > 0) {
+            return true;
+          }
+        }
+      }
+      return false;
+    });
 
     if (lat) {
 

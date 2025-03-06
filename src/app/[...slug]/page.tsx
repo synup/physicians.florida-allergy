@@ -167,12 +167,12 @@ const AboutLocation = async ({ params }: any) => {
     "instagram": 17,
     "facebook": 18,
     "linkedin": 19,
-    "pictureUrl":20
+    "pictureUrl": 20
   };
 
   // Fetch Excel data
   const excelData = await fetchSheetData(slug);
- 
+
 
   const filterdataByAddress = async (id: any) => {
     if (!excelData || !Array.isArray(excelData)) {
@@ -217,16 +217,27 @@ const AboutLocation = async ({ params }: any) => {
   console.log(result)
 
   const convertGoogleDriveLink = (url: string) => {
-    const match = url.match(/[-\w]{25,}/); 
+    const match = url.match(/[-\w]{25,}/);
     return match ? `https://drive.google.com/uc?export=view&id=${match[0]}` : url;
   };
-  
+
+  const getDoctorBio = () => {
+    const customAttrs = location.customAttributes;
+    for (const customAttr of customAttrs) {
+      if (customAttr["name"] === "Doctor bio") {
+        if (customAttr["value"] && customAttr["value"].length > 0) {
+          return customAttr["value"].join(" ");
+        }
+      }
+    }
+    return null;
+  }
 
   return (
     <>
 
-      
-<DocDetHeader getlocation={location} />
+
+      <DocDetHeader getlocation={location} />
       {/* Hero */}
       <div className="bg-[url('/img/bg.png')] bg-cover bg-center py-[50px] md:py-[64px] relative hero-bnr">
         <div className="container mx-auto px-[15px] flex flex-col justify-center items-center h-full text-white relative z-10">
@@ -246,27 +257,27 @@ const AboutLocation = async ({ params }: any) => {
       <div className="container px-[15px] mx-auto flex py-[32px]  flex-col md:flex-row  md:items-none gap-8 border-b border-[#e5e5e5]">
         {/* <div className=""> */}
         <Image
-         src={
-          result[ExcelDataKeys["pictureUrl"]]
-            ? convertGoogleDriveLink(result[ExcelDataKeys["pictureUrl"]])
-            : `https://placehold.co/400x400?text=${encodeURIComponent(printNames(result) )}`
-        }
+          src={
+            result[ExcelDataKeys["pictureUrl"]]
+              ? convertGoogleDriveLink(result[ExcelDataKeys["pictureUrl"]])
+              : `https://placehold.co/400x400?text=${encodeURIComponent(printNames(result))}`
+          }
           alt=""
           width={300}
           height={550}
           className="w-full md:w-[300px]"
-        
+
         />
         {/* </div> */}
         <div className=" flex-1">
-          <p className="mb-[16px] text-center md:text-start  text-[#373a3c]">{location?.description}</p>
+          <p className="mb-[16px] text-center md:text-start  text-[#373a3c]">{getDoctorBio()}</p>
           <div className="flex flex-col md:flex-row gap-0 md:gap-5">
-          <Link href={result[ExcelDataKeys["doctor_website_url"]]} className="px-[16px] text-center py-[8px] bg-[#3fae49] text-[18px] text-white my-[16px]">
-            Learn More
-          </Link>
-          <Link href="" className="px-[16px]  py-[8px] bg-[#373a3c] hover:bg-[#252728] text-[18px] text-center text-white my-[16px]">
-          Visit Dr. Martell in Hialeah
-          </Link>
+            <Link href={result[ExcelDataKeys["doctor_website_url"]]} className="px-[16px] text-center py-[8px] bg-[#3fae49] text-[18px] text-white my-[16px]">
+              Learn More
+            </Link>
+            <Link href="" className="px-[16px]  py-[8px] bg-[#373a3c] hover:bg-[#252728] text-[18px] text-center text-white my-[16px]">
+              Visit Dr. {result[ExcelDataKeys["last_name"]]} in Hialeah
+            </Link>
           </div>
         </div>
       </div>
@@ -306,9 +317,9 @@ const AboutLocation = async ({ params }: any) => {
                 >
                   Get Directions
                 </Link>
-                
+
               )}
-              
+
             </div>
             <div className=" mb-[24px]">
               <h1 className="text-[22.5px] font-light mb-[8px] ">
@@ -335,13 +346,13 @@ const AboutLocation = async ({ params }: any) => {
 
             <div className=" md:mb-[24px] -mx-[15px] md:mx-[0]">
               <SingleLocationMap location={location} />
-            </div> 
+            </div>
           </div>
         </div>
       </div>
 
       {/* Footer */}
-     <InternalPagesFooter result={result}/>
+      <InternalPagesFooter result={result} />
     </>
   );
 };
