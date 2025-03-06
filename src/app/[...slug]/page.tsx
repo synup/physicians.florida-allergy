@@ -174,7 +174,7 @@ const AboutLocation = async ({ params }: any) => {
 
   // Fetch Excel data
   const excelData = await fetchSheetData(slug);
-  console.log(excelData,'excelData')
+ 
 
   const filterdataByAddress = async (id: any) => {
     if (!excelData || !Array.isArray(excelData)) {
@@ -184,7 +184,7 @@ const AboutLocation = async ({ params }: any) => {
     const filteredData = excelData.filter(
       (data: any) => String(data[ExcelDataKeys.synup_id]) === String(id)
     );
-    console.log(filteredData,"filteredData");
+    // console.log(filteredData,"filteredData");
     if (filteredData.length === 0) {
       return notFound();
     }
@@ -213,7 +213,7 @@ const AboutLocation = async ({ params }: any) => {
 
   const id = location.id;
   const base64Id: any = decodeBase64(id);
-  console.log(base64Id,"base64Id")
+
   const result = await filterdataByAddress(base64Id);
 
   console.log(result)

@@ -9,6 +9,7 @@ export type LocationDetailsDynamicWrapperProps = {
 };
 
 function SingleLocationMap(props: LocationDetailsDynamicWrapperProps) {
+  // console.log('SingleLocationMap', Number(props?.location?.latitude),Number(props?.location?.longitude));
   return (
     <GoogleMapsProvider>
       <div className="h-[300px] md:h-[300px] overflow-hidden map right-map">
@@ -25,7 +26,7 @@ function SingleLocationMap(props: LocationDetailsDynamicWrapperProps) {
               slug: getLocationSlug(props?.location),
             },
           ]}
-          zoomLevel={10}
+          zoomLevel={12}
           focussedMarkerIndex={-1}
         />
       </div>

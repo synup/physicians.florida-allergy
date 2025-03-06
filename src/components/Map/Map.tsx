@@ -26,13 +26,15 @@ const Map = (props: MapProps) => {
   // Map Center
   const center = props?.center || DEFAULT_LOCATION;
 
+ 
+
   // States
   const [map, setMap] = useState<google.maps.Map | null>(null);
 
   // On Map Load
   const onLoad = useCallback(function callback(map: google.maps.Map) {
     const bounds = new window.google.maps.LatLngBounds();
-    map.fitBounds(bounds);
+    // map.fitBounds(bounds);
 
     setMap(map);
   }, []);
