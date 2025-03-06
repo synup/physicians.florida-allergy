@@ -269,6 +269,10 @@ font-family: "Source Sans Pro";
   body{
     overflow-x: hidden;
   }
+
+  .mob-setting {
+    height:500px;
+  }
   
 }
 @media (max-width: 576px) {

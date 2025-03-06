@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useState } from "react";
 
 
-export default function docDetHeader({ getlocation }) {
+export default function DocDetHeader({ getlocation }) {
 
   const [isOpen, setIsOpen] = useState(false);
 

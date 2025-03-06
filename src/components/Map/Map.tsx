@@ -69,7 +69,7 @@ const Map = (props: MapProps) => {
   }
 
   return (
-    <div className="google-map h-full">
+    <div className="google-map mob-setting h-full">
       {/* <GoogleMap
         mapContainerStyle={DEFAULT_CONTAINER_STYLE}
         center={center}

@@ -1,13 +1,8 @@
 
 
 import Image from "next/image";
-import {
-  FaFacebookF,
-  FaInstagram,
-  FaLinkedinIn,
-} from "react-icons/fa";
 import { GraphQLClient, gql } from "graphql-request";
-import Footer from "@/components/Footer/Footer";
+import InternalPagesFooter from "@/components/Footer/InternalPagesFooter";
 import { notFound } from "next/navigation";
 import { SYNUP_API_KEY } from "@/lib/constants";
 import {
@@ -346,7 +341,7 @@ const AboutLocation = async ({ params }: any) => {
       </div>
 
       {/* Footer */}
-     <Footer/>
+     <InternalPagesFooter result={result}/>
     </>
   );
 };
