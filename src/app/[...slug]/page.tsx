@@ -1,12 +1,13 @@
 
+
 import Image from "next/image";
 import {
   FaFacebookF,
   FaInstagram,
   FaLinkedinIn,
 } from "react-icons/fa";
-import { Menu, X } from "lucide-react";
 import { GraphQLClient, gql } from "graphql-request";
+import Footer from "@/components/Footer/Footer";
 import { notFound } from "next/navigation";
 import { SYNUP_API_KEY } from "@/lib/constants";
 import {
@@ -18,6 +19,8 @@ import { BusinessHour } from "@/models/interfaces";
 import Link from "next/link";
 import SingleLocationMap from "@/components/Map/SingleLocationMap";
 import { fetchSheetData } from "@/actions/location.action";
+import DocDetHeader from "@/components/doc-det-head/page";
+
 
 const fetchLocation = async (locationId: string) => {
   try {
@@ -218,8 +221,6 @@ const AboutLocation = async ({ params }: any) => {
 
   console.log(result)
 
-  const isOpen = true;
-
   const convertGoogleDriveLink = (url: string) => {
     const match = url.match(/[-\w]{25,}/); 
     return match ? `https://drive.google.com/uc?export=view&id=${match[0]}` : url;
@@ -229,62 +230,15 @@ const AboutLocation = async ({ params }: any) => {
   return (
     <>
 
-      <header className="page-header ">
-        <div className="container relative px-[15px] mx-auto flex gap-[30px] py-4">
-          <div className="flex items-center md:space-x-3">
-            <Image
-              src="/img/logo.png"
-              alt="Florida Center Logo"
-              width={250}
-              height={50}
-            />
-          </div>
-          <button className="md:hidden p-2 ml-auto text-[#3fae49] focus:outline-none">
-            {isOpen ? <X size={28} /> : <Menu size={28} />}
-          </button>
-
-          <div
-            className={`absolute text-[#3fae49] py-[15px] md:py-[0px] md:static md:block top-[100%] left-0 w-full z-[100] bg-white shadow-md md:shadow-none transition-all duration-500 ease-in-out transform ${isOpen
-              ? "translate-x-0 opacity-100"
-              : "md:translate-x-0 translate-x-full md:opacity-100 opacity-0"
-              }`}
-          >
-            <p className="text-[15px] hover:text-[#3FB618] p-[8px] mx-[15px] md:mx-[15px] mt-[0px]">
-              {location?.phone && (
-                <a href={`tel:${location?.phone}`}>{location?.phone}</a>
-              )}
-            </p>
-            <nav className="flex flex-col space-y-1 text-left gap-2">
-              <Link
-                href="/"
-                className="hover:text-[#3FB618] text-[15px] p-[8px] mx-[15px] !mt-[0px]"
-              >
-                LOCATIONS
-              </Link>
-              <Link
-                href="/"
-                className="hover:text-[#3FB618] text-[15px] p-[8px] mx-[15px] !mt-[0px]"
-              >
-                SERVICES
-              </Link>
-              <Link
-                href="/"
-                className="hover:text-[#3FB618] text-[15px] p-[8px] mx-[15px] !mt-[0px]"
-              >
-                NEW PATIENT FORMS
-              </Link>
-            </nav>
-          </div>
-        </div>
-      </header>
-
+      
+<DocDetHeader getlocation={location} />
       {/* Hero */}
       <div className="bg-[url('/img/bg.png')] bg-cover bg-center py-[50px] md:py-[64px] relative hero-bnr">
         <div className="container mx-auto px-[15px] flex flex-col justify-center items-center h-full text-white relative z-10">
-          <h1 className="text-4xl font-light mb-[8px]">
+          <h1 className="banner-heading font-light mb-[8px]">
             {printNames(result)}, {result[ExcelDataKeys["degrees"]]}
           </h1>
-          <p className="mt-1 text-center  mb-[16px]">
+          <p className="mt-1 banner-content text-center  mb-[16px]">
             {result[ExcelDataKeys["title"]]}
           </p>
           <Link href={result[ExcelDataKeys["doctor_website_url"]]} className="bg-[#373a3c] px-6 py-2 text-center text-sm md:text-lg text-[15px] font-medium mt-1">
@@ -294,7 +248,7 @@ const AboutLocation = async ({ params }: any) => {
       </div>
 
       {/* Doctor Section */}
-      <div className="container px-[15px] mx-auto flex py-[32px]  flex-col md:flex-row justify-center items-center md:items-none gap-8 border-b border-[#e5e5e5]">
+      <div className="container px-[15px] mx-auto flex py-[32px]  flex-col md:flex-row  md:items-none gap-8 border-b border-[#e5e5e5]">
         {/* <div className=""> */}
         <Image
          src={
@@ -310,10 +264,15 @@ const AboutLocation = async ({ params }: any) => {
         />
         {/* </div> */}
         <div className=" flex-1">
-          <p className="mb-[16px]   text-[#373a3c]">{location?.description}</p>
-          <Link href={result[ExcelDataKeys["doctor_website_url"]]} className="px-[16px] py-[8px] bg-[#3fae49] text-[18px] text-white my-[16px]">
+          <p className="mb-[16px] text-center md:text-start  text-[#373a3c]">{location?.description}</p>
+          <div className="flex flex-col md:flex-row gap-0 md:gap-5">
+          <Link href={result[ExcelDataKeys["doctor_website_url"]]} className="px-[16px] text-center py-[8px] bg-[#3fae49] text-[18px] text-white my-[16px]">
             Learn More
           </Link>
+          <Link href="" className="px-[16px]  py-[8px] bg-[#373a3c] hover:bg-[#252728] text-[18px] text-center text-white my-[16px]">
+          Visit Dr. Martell in Hialeah
+          </Link>
+          </div>
         </div>
       </div>
 
@@ -330,7 +289,7 @@ const AboutLocation = async ({ params }: any) => {
               <h1 className="text-[22.5px] mb-[8px] text-[#373a3c] font-wight">
                 Address
               </h1>
-              <p className="w-72">
+              <p className="w-72 text-[#373a3c]">
                 {location?.street}
                 {location?.street1 ? `, ${location?.street1}` : ""}
                 {location?.city ? `, ${location?.city}` : ""}
@@ -338,31 +297,33 @@ const AboutLocation = async ({ params }: any) => {
                 {location?.postalCode ? `, ${location?.postalCode}` : ""}
                 {location?.countryIso ? `, ${location?.countryIso}` : ""}
               </p>
-              <p className="mt- text-[15px]">
+              <p className="mt- text-[15px] ">
                 {location?.phone && formatPhoneNumber(location?.phone)}
               </p>
-              <p className="mt- text-[15px] mb-[16px]">
+              <p className="mt- text-[15px] mb-[16px] text-[#373a3c]">
                 {location?.ownerEmail}
               </p>
               {location?.latitude && location?.longitude && (
                 <Link
-                  className=" px-[16px] py-[8px] mt-[16px] border mb-[4px] bg-[#3fae49] text-white"
+                  className="text-[18.75px] px-[16px] py-[8px] mt-[16px] border block md:inline text-center  w-[100%] bg-[#3fae49] text-white"
                   href={`https://www.google.com/maps/dir/?api=1&destination=${location?.latitude},${location?.longitude}`}
                   target="_blank"
                 >
                   Get Directions
                 </Link>
+                
               )}
+              
             </div>
             <div className=" mb-[24px]">
               <h1 className="text-[22.5px] font-light mb-[8px] ">
                 Office Hours
               </h1>
-              <div className="flex flex-col">
+              <div className="flex flex-col current-day">
                 {businessHours?.map((hours: BusinessHour) => (
                   <div className="flex  text-[#373a3c]" key={hours.day}>
                     <div className=" md:w-[25%] w-[30%]">
-                      <p className="py-[1px] pl-[1px] pr-[10px]">{hours.day}</p>
+                      <p className="py-[1px] pl-[1px] pr-[10px] ">{hours.day}</p>
                     </div>
                     {hours?.type === "CLOSED" ? (
                       <div className="w-40">CLOSED</div>
@@ -385,45 +346,7 @@ const AboutLocation = async ({ params }: any) => {
       </div>
 
       {/* Footer */}
-      <footer className="bg-gray-100 py-6 md:mt-10">
-        <div className="container mx-auto px-[15px] gap-2 flex flex-col md:flex-row justify-between items-center text-gray-600">
-          {/* Navigation Links */}
-          <div className="flex flex-col justify-center items-start mb-4 md:mb-0">
-            <div className="flex space-x-6 mb-4 text-[#212529]">
-              <a href="#" className="underline hover:no-underline">
-                News & Blog
-              </a>
-              <a href="#" className="underline hover:no-underline">
-                Glossary
-              </a>
-              <a href="#" className="underline hover:no-underline">
-                Research
-              </a>
-            </div>
-            {/* Copyright */}
-            <p className="text-[15px] text-[#373A3C]">
-              © 2012 - 2023 - Florida Center For Allergy & Asthma Care. All
-              Rights Reserved.
-            </p>
-          </div>
-
-          {/* Social Icons */}
-          <div className="flex space-x-4">
-            <a href={result[ExcelDataKeys["facebook"]]} className="text-gray-500 hover:text-gray-800">
-              <FaFacebookF size={20} />
-            </a>
-            <a href={result[ExcelDataKeys["linkedin"]]} className="text-gray-500 hover:text-gray-800">
-              <FaLinkedinIn size={20} />
-            </a>
-            {/* <a href="#" className="text-gray-500 hover:text-gray-800">
-              <FaTwitter size={20} />
-            </a> */}
-            <a href={result[ExcelDataKeys["instagram"]]} className="text-gray-500 hover:text-gray-800">
-              <FaInstagram size={20} />
-            </a>
-          </div>
-        </div>
-      </footer>
+     <Footer/>
     </>
   );
 };

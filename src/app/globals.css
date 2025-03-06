@@ -233,3 +233,53 @@ font-family: "Source Sans Pro";
 }
 
 /* https://assets.sitescdn.net/landingpages/shared-assets/fonts/Source+Sans+Pro/fonts.css */
+
+
+/* Arshpreet */
+.logo{
+  height: 80px !important;
+  width: 268px !important;
+  max-width: unset;
+}
+.current-day > div:first-child{
+  font-weight: 600;
+}
+.nav-bar{
+  padding: 8px 157px;
+}
+
+.current-day{
+  font-size: 15px !important;
+
+}
+.banner-heading{
+  font-size: 30px !important;
+}
+.banner-content{
+  font-size: 15px !important;
+}
+
+@media (max-width: 992px) {
+  .nav-bar{
+    padding: 8px 39px;
+  }
+}
+
+@media screen and (max-width:767px){
+  body{
+    overflow-x: hidden;
+  }
+  
+}
+@media (max-width: 576px) {
+  .nav-bar{
+    padding: 8px 16px;
+  }
+  .logo{
+    height: 60px !important;
+    width: 180px !important;
+  }
+}
+
+
+

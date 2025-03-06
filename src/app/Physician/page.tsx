@@ -7,6 +7,7 @@ import {
   FaLinkedinIn,
   FaTwitter,
 } from "react-icons/fa";
+import { IoReorderThreeOutline } from "react-icons/io5";
 
 export default function PhysicianSearch() {
   const [location, setLocation] = useState("Miami Beach, FL 33140, USA");
@@ -14,10 +15,15 @@ export default function PhysicianSearch() {
   return (
     <>
       <div className="py-[30px] px-[15px] bg-[#f8f9fa]">
-        <div className=" container  mx-auto">
-          <h1 className="text-[#00000080] text-center md:text-start">
+        <div className=" container flex justify-between  mx-auto">
+          <div>
+          <h1 className="text-[#00000080] hidden md:text-start">
             Link to Finder
           </h1>
+          </div>
+         <div>
+          <IoReorderThreeOutline  size={30} />
+          </div>
         </div>
       </div>
       <div className="md:flex items-stretch px-[15px]">
