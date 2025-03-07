@@ -29,7 +29,7 @@ export default function InternalPagesFooter({ result }) {
     "linkedin": 19,
     "pictureUrl": 20
   };
-  console.log(result, result)
+  
   return (
     <footer className="bg-gray-100 px-[15px] py-6">
       <div className="container mx-auto flex flex-col justify-center md:judtify-none  text-gray-600">

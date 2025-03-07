@@ -214,8 +214,6 @@ const AboutLocation = async ({ params }: any) => {
 
   const result = await filterdataByAddress(base64Id);
 
-  console.log(result)
-
   const convertGoogleDriveLink = (url: string) => {
     const match = url.match(/[-\w]{25,}/);
     return match ? `https://drive.google.com/uc?export=view&id=${match[0]}` : url;
@@ -232,6 +230,19 @@ const AboutLocation = async ({ params }: any) => {
     }
     return null;
   }
+   
+  const getDoctorTitle = () => {
+    const customAttrs = location.customAttributes;
+    console.log(customAttrs);
+    for (const customAttr of customAttrs) {
+      if (customAttr["name"] === "Doctor title") {
+        if (customAttr["value"] && customAttr["value"].length > 0) {
+          return customAttr["value"].join(" ");
+        }
+      }
+    }
+    return result[ExcelDataKeys["title"]];
+  }
 
   return (
     <>
@@ -245,7 +256,7 @@ const AboutLocation = async ({ params }: any) => {
             {printNames(result)}, {result[ExcelDataKeys["degrees"]]}
           </h1>
           <p className="mt-1 banner-content text-center  mb-[16px]">
-            {result[ExcelDataKeys["title"]]}
+            {getDoctorTitle()}
           </p>
           <Link href={result[ExcelDataKeys["doctor_website_url"]]} className="bg-[#373a3c] px-6 py-2 text-center text-sm md:text-lg text-[15px] font-medium mt-1">
             Request an Appointment in {result[ExcelDataKeys["office_name"]]}
